@@ -1,14 +1,13 @@
-package com.sekurity.room_escape.api.common.completion.dto.req;
+package com.sekurity.room_escape.domain.goal.entity.dto.req;
 
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-public class GameCreateReq {
+public class GoalStartReq {
 
   private String teamName;
   @Setter
   private LocalDateTime startTime;
-
 }

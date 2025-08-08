@@ -1,7 +1,8 @@
 package com.sekurity.room_escape.api.common.goal.controller;
 
+import com.sekurity.room_escape.domain.goal.entity.dto.req.GoalEndReq;
 import com.sekurity.room_escape.api.common.goal.facade.GoalFacade;
-import com.sekurity.room_escape.domain.goal.entity.dto.req.GoalCreateReq;
+import com.sekurity.room_escape.domain.goal.entity.dto.req.GoalStartReq;
 import com.sekurity.room_escape.domain.goal.entity.dto.resp.GoalResp;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
@@ -15,16 +16,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("common/goal")
-@Tag(name = "[유저] 문제")
+@Tag(name = "[유저] 문제/완료")
 public class GoalController {
 
   private final GoalFacade goalFacade;
 
-  @PostMapping
+  @PostMapping("/end")
   public GoalResp complete(
-      @RequestBody GoalCreateReq req
+      @RequestBody GoalEndReq req
   ) {
     return goalFacade.complete(req);
+  }
+  @PostMapping("/start")
+  public void start(
+      @RequestBody GoalStartReq req
+  ) {
+    goalFacade.gameStart(req);
   }
 
   @GetMapping("/list")

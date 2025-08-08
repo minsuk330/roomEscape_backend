@@ -1,7 +1,7 @@
 package com.sekurity.room_escape.domain.goal.service;
 
 import com.sekurity.room_escape.domain.goal.entity.Goal;
-import com.sekurity.room_escape.domain.goal.entity.dto.req.GoalCreateReq;
+import com.sekurity.room_escape.domain.goal.entity.dto.req.GoalStartReq;
 import com.sekurity.room_escape.domain.goal.entity.dto.resp.GoalResp;
 import com.sekurity.room_escape.domain.goal.repository.GoalRepository;
 import com.sekurity.room_escape.domain.member.entity.Member;
@@ -19,13 +19,10 @@ public class GoalService {
   private final GoalRepository goalRepository;
 
   @Transactional
-  public Goal save(GoalCreateReq req, Member member) {
+  public Goal save(GoalStartReq req, Member member) {
     return goalRepository.save(Goal.builder()
         .member(member)
         .startTime(req.getStartTime())
-        .endTime(req.getEndTime())
-        .actualTime(Duration.between(req.getStartTime(), req.getEndTime()))
-        //랭크 추가해줘야 한다
         .build()
     );
   }
@@ -65,4 +62,8 @@ public class GoalService {
   }
 
 
+  public Goal getByMember(Member member) {
+    return goalRepository.findByMember(member.getTeamName());
+
+  }
 }

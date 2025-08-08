@@ -1,12 +1,14 @@
 package com.sekurity.room_escape.api.common.goal.facade;
 
-import com.sekurity.room_escape.api.common.completion.dto.req.GameCreateReq;
 import com.sekurity.room_escape.domain.goal.entity.Goal;
-import com.sekurity.room_escape.domain.goal.entity.dto.req.GoalCreateReq;
+import com.sekurity.room_escape.domain.goal.entity.dto.req.GoalEndReq;
+import com.sekurity.room_escape.domain.goal.entity.dto.req.GoalStartReq;
 import com.sekurity.room_escape.domain.goal.entity.dto.resp.GoalResp;
 import com.sekurity.room_escape.domain.goal.service.GoalService;
 import com.sekurity.room_escape.domain.member.entity.Member;
 import com.sekurity.room_escape.domain.member.service.MemberService;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,16 +22,32 @@ public class GoalFacade {
   private final MemberService memberService;
 
   @Transactional
-  public GoalResp complete(GoalCreateReq req) {
+  public GoalResp complete(GoalEndReq req) {
     Member member = memberService.getByName(req.getTeamName());
+    Goal goal = goalService.getByMember(member);
 
-    Goal goal = goalService.save(req, member);
+    if (goal.getEndTime()!=null) {
+      throw new IllegalStateException("이미 완료된 팀입니다.");
+    }
+    else {
+      goal.setEndTime(LocalDateTime.now());
+      goal.setActualTime(Duration.between(goal.getStartTime(), goal.getEndTime()));
+    }
+
     updateAllRank();
 
     return goalService.goalResp(goal);
   }
 
-  public GoalCreateReq
+  @Transactional
+  public void gameStart(GoalStartReq req) {
+
+    req.setStartTime(LocalDateTime.now());
+
+    Member member = memberService.getByName(req.getTeamName());
+
+    goalService.save(req,member);
+  }
 
   public List<GoalResp> getGoals() {
     List<Goal> goals = goalService.gets();

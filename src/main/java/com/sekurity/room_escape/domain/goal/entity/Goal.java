@@ -37,8 +37,4 @@ public class Goal {
 
   private Integer rank;
 
-
-  public Duration getActualTime(LocalDateTime startTime, LocalDateTime endTime) {
-    return Duration.between(startTime, endTime);
-  }
 }
