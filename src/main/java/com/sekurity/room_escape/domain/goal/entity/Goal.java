@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Version;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,12 @@ public class Goal {
   private LocalDateTime startTime;
   private LocalDateTime endTime;
   private Duration actualTime;
+
+  @Version
+  private Long version;
+
+  private boolean isCompleted = false;
+
 
   private Integer rank;
 

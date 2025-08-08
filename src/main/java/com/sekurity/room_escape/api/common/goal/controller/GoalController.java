@@ -4,6 +4,7 @@ import com.sekurity.room_escape.domain.goal.entity.dto.req.GoalEndReq;
 import com.sekurity.room_escape.api.common.goal.facade.GoalFacade;
 import com.sekurity.room_escape.domain.goal.entity.dto.req.GoalStartReq;
 import com.sekurity.room_escape.domain.goal.entity.dto.resp.GoalResp;
+import com.sekurity.room_escape.domain.goal.entity.dto.resp.GoalStartResp;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -28,10 +29,10 @@ public class GoalController {
     return goalFacade.complete(req);
   }
   @PostMapping("/start")
-  public void start(
+  public GoalStartResp start(
       @RequestBody GoalStartReq req
   ) {
-    goalFacade.gameStart(req);
+    return goalFacade.gameStart(req);
   }
 
   @GetMapping("/list")

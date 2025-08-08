@@ -1,6 +1,7 @@
 package com.sekurity.room_escape.domain.goal.service;
 
 import com.sekurity.room_escape.domain.goal.entity.Goal;
+import com.sekurity.room_escape.domain.goal.entity.dto.req.GoalEndReq;
 import com.sekurity.room_escape.domain.goal.entity.dto.req.GoalStartReq;
 import com.sekurity.room_escape.domain.goal.entity.dto.resp.GoalResp;
 import com.sekurity.room_escape.domain.goal.repository.GoalRepository;
@@ -19,7 +20,7 @@ public class GoalService {
   private final GoalRepository goalRepository;
 
   @Transactional
-  public Goal save(GoalStartReq req, Member member) {
+  public Goal start(GoalStartReq req, Member member) {
     return goalRepository.save(Goal.builder()
         .member(member)
         .startTime(req.getStartTime())
@@ -62,8 +63,8 @@ public class GoalService {
   }
 
 
-  public Goal getByMember(Member member) {
-    return goalRepository.findByMember(member.getTeamName());
+  public Goal getByTeamName(String teamName) {
+    return goalRepository.findByMember(teamName);
 
   }
 }
