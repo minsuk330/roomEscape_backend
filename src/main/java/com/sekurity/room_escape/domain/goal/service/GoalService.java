@@ -33,7 +33,7 @@ public class GoalService {
   }
 
   public List<Goal> gets() {
-    return goalRepository.findAll();
+    return goalRepository.findAllByOrderByRankAsc();
   }
 
   public List<Goal> getsByTime() {

@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
+
 public class GoalFacade {
   private final GoalService goalService;
   private final MemberService memberService;
@@ -55,7 +56,6 @@ public class GoalFacade {
 
   @Transactional
   public GoalStartResp gameStart(GoalStartReq req) {
-
     try {
       Member member = memberService.getByName(req.getTeamName());
       Goal existingGoal = goalService.getByTeamName(member.getTeamName());

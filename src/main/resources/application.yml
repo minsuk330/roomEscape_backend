@@ -6,6 +6,7 @@ spring:
   config:
     import:
       - classpath:application-db.yml
+      - classpath:application-aws.yml
 springdoc:
   swagger-ui:
     tags-sorter: alpha

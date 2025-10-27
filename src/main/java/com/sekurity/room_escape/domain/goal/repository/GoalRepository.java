@@ -12,4 +12,6 @@ public interface GoalRepository extends JpaRepository<Goal, Long> {
 
   @Query("select g from Goal g where g.member.teamName = :teamName")
   Goal findByMember(@Param("teamName") String teamName);
+
+  List<Goal> findAllByOrderByRankAsc();
 }

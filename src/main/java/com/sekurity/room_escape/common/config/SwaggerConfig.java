@@ -14,7 +14,9 @@ public class SwaggerConfig {
     return new OpenAPI()
         .info(new Info().title("Room Escape API"))
         .servers(List.of(
-            new Server().url("http://localhost:8080").description("local")
+            new Server().url("http://localhost:8080").description("local"),
+            new Server().url("https://api.watootoo.store").description("production")
         ));
+
   }
 }
