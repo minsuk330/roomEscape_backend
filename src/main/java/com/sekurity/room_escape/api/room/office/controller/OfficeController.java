@@ -20,7 +20,8 @@ public class OfficeController {
 
   @PostMapping
   public OfficeResp submit(
-      @RequestBody OfficeReq req) {
+      @RequestBody OfficeReq req
+  ) {
     return officeFacade.check(req);
   }
 

@@ -45,6 +45,7 @@ public class GoalService {
         .goalTime(formatDuration(goal.getActualTime()))
         .teamName(goal.getMember().getTeamName())
         .rank(goal.getRank())
+        .completed(true)
         .build();
   }
 

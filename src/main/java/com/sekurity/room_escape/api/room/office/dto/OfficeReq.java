@@ -5,8 +5,8 @@ import lombok.Getter;
 @Getter
 public class OfficeReq {
 
-  String id;
-  String password;
+  private String id;
+  private String password;
 
 
 }

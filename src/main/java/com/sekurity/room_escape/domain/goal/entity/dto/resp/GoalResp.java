@@ -16,5 +16,7 @@ public class GoalResp {
   private String teamName;
   private String goalTime;
   private Integer rank;
+  private String message;
+  private boolean completed;
 
 }

@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
-
 public class GoalFacade {
   private final GoalService goalService;
   private final MemberService memberService;
@@ -35,7 +34,10 @@ public class GoalFacade {
       }
 
       if (goal.isCompleted()) {
-        throw new IllegalStateException("이미 다른 팀원이 완료했습니다.");
+        return GoalResp.builder()
+            .completed(false)
+            .message("이미 다른 팀원이 완료했습니다.")
+            .build();
       }
 
 
@@ -50,7 +52,11 @@ public class GoalFacade {
       return goalService.goalResp(goal);
 
     } catch (OptimisticLockingFailureException e) {
-      throw new IllegalStateException("다른 팀원이 먼저 완료했습니다.");
+      return GoalResp.builder()
+          .completed(false)
+          .message("다른 팀원이 먼저 완료했습니다.")
+          .build();
+
     }
   }
 
