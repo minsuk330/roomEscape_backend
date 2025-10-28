@@ -65,6 +65,7 @@ public class GoalFacade {
         if (existingGoal.getEndTime()==null) {
           return GoalStartResp.builder()
               .startTime(existingGoal.getStartTime())
+              .start(true)
               .teamName(existingGoal.getMember().getTeamName())
               .message("이미 시작된 게임입니다. 계속 진행하세요!")
               .build();
@@ -74,6 +75,7 @@ public class GoalFacade {
           return GoalStartResp.builder()
               .startTime(existingGoal.getStartTime())
               .endTime(existingGoal.getEndTime())
+              .start(true)
               .teamName(existingGoal.getMember().getTeamName())
               .message("이미 완료된 게임입니다.")
               .build();
@@ -85,6 +87,7 @@ public class GoalFacade {
       return GoalStartResp.builder()
           .teamName(newGoal.getMember().getTeamName())
           .startTime(newGoal.getStartTime())
+          .start(true)
           .message("게임이 시작되었습니다!")
           .build();
     }
@@ -93,6 +96,7 @@ public class GoalFacade {
       return GoalStartResp.builder()
           .teamName(goal.getMember().getTeamName())
           .startTime(goal.getStartTime())
+          .start(false)
           .message("다른 팀원이 게임을 시작했습니다. 잠시후에 다시 시도해주세요")
           .build();
     }
@@ -100,7 +104,7 @@ public class GoalFacade {
   }
 
   public List<GoalResp> getGoals() {
-    List<Goal> goals = goalService.gets();
+    List<Goal> goals = goalService.getsByTime();
     return goals.stream().map(goalService::goalResp).toList();
   }
 

@@ -16,6 +16,7 @@ public class GoalStartResp {
   private String teamName;
   private LocalDateTime startTime;
   private LocalDateTime endTime;
+  private boolean start;
 
 
 }
