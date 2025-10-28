@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ElevatorFacade {
 
-
-
   public ElevatorResp check(ElevatorReq req) {
     if (req.getNumbers()!=null && req.getNumbers().equals("11111111")) {
       return ElevatorResp.builder()
